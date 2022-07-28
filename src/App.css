@@ -19,6 +19,11 @@
   margin: 0;
 }
 
+.header__logo {
+  border-radius: 50%;
+  background-color: var(--text-color);
+}
+
 .content {
   flex: 1 0 auto;
   display: flex;
