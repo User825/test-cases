@@ -1,49 +1,57 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Navigate, Route } from "react-router-dom";
+import { Routes, Navigate, Route } from "react-router-dom";
 
-import useStore from "./store";
-import { Header } from './Header';
+import { useUsersStore, useGameStore } from "./store";
+
+import { Main } from "./pages/Main";
+import { GameStore } from "./pages/GameStore";
+import { UsersSortList } from "./pages/UsersSortList";
+import { Page404 } from "./pages/Page404";
 
 import './App.css';
-import { Table } from "./Table";
-import { Page404 } from "./Page404";
+
 
 function App() {
-  const initUser = useStore((state) => state.getUsers);
-  const usersData = useStore((state) => state.users)
+  const initUser = useUsersStore((state) => state.getUsers);
+  const usersData = useUsersStore((state) => state.users)
+  const initGames = useGameStore((state) => state.getGames)
+  const gamesData = useGameStore((state) => state.games)
   const [isLoadingUsers, setLoadingStatus] = useState(true);
 
   useEffect(() => {
     initUser();
-  }, []);
+    initGames();
+  }, [initUser, initGames]);
 
   useEffect(() => {
-    if (usersData.length > 0) {
+    if (usersData.length > 0 || gamesData.length > 0) {
       setLoadingStatus(false)
     }
-  }, [usersData])
+  }, [usersData, gamesData])
 
   return (
     <div className="App">
-      <Header />
-      <div className="content">
-        {isLoadingUsers ? (<></>) : (
-          <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <Routes>
-              <Route
-                index
-                path="/"
-                element={<Navigate to="/1" replace={true} />}
-              />
-              <Route
-                path=":page"
-                element={<Table />}
-              />
-              <Route path="*" element={<Page404 />} />
-            </Routes>
-          </BrowserRouter>
-        )}
-      </div>
+      {isLoadingUsers ? (<></>) : (
+        <Routes>
+          <Route
+            path="/"
+            element={<Main />}
+          />
+          <Route
+            path="/usersSortList/"
+            element={<Navigate to="/usersSortList/1" replace={true} />}
+          />
+          <Route
+            path="/usersSortList/:page"
+            element={<UsersSortList />}
+          />
+          <Route
+            path="/gameStore/"
+            element={<GameStore />}
+          />
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+      )}
     </div>
   );
 }

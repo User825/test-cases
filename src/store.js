@@ -1,14 +1,15 @@
 import create from 'zustand'
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
-import { fetchUsers } from './api';
-import { collectUsersList, shuffle, sortUsersArray } from './utils';
+import { fetchGames, fetchUsers } from './api';
+import { collectGamesList, collectUsersList, shuffle, sortUsersArray } from './utils';
 
 const USERS_QUANTITY = 1000;
+const GAMES_QUANTITY = 25;
 
-const useStore = create((set) => ({
+export const useUsersStore = create((set) => ({
   users: [],
-  getUsers: async () =>{
+  getUsers: async () => {
     const responseUsers = await fetchUsers();
 
     set(() => ({ users: collectUsersList({ usersOriginList: responseUsers, quantityUsers: USERS_QUANTITY })}))
@@ -24,8 +25,18 @@ const useStore = create((set) => ({
   }))
 }));
 
+export const useGameStore = create((set) => ({
+  games: [],
+  getGames: async () => {
+    const responseGames = await fetchGames();
+
+    set(() => ({ games: collectGamesList({ gamesOriginList: responseGames, quantityGames: GAMES_QUANTITY }) }))
+  }
+}));
+
 if (process.env.NODE_ENV === 'development') {
-  mountStoreDevtool('Store', useStore);
+  mountStoreDevtool('Store', useUsersStore);
+  mountStoreDevtool('Store', useGameStore);
 }
 
-export default useStore;
+
