@@ -34,40 +34,48 @@ export const GameStore = props => {
 
     if (value === '') {
       setInputValue(value);
-      setGamesRate([]);
-
       return;
     }
 
     if (isInvalidValue) return;
 
     if (numberValue > MAX_AGE || numberValue === 0) return;
-    
-    if (numberValue < 0 || numberValue >= HIGH_RATE_AGE) {
+
+    setInputValue(value);
+  }
+
+  
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    if (!inputValue) {
+      setGamesRate([]);
+    };
+
+    if (inputValue < 0 || inputValue >= HIGH_RATE_AGE) {
       setGamesRate(['high', 'medium', 'low', 'lowest']);
     }
 
-    if (numberValue >= LOWEST_RATE_AGE && numberValue < LOW_RATE_AGE) {
+    if (inputValue >= LOWEST_RATE_AGE && inputValue < LOW_RATE_AGE) {
       setGamesRate(['lowest']);
     }
 
-    if (numberValue >= LOW_RATE_AGE && numberValue < MEDIUM_RATE_AGE) {
+    if (inputValue >= LOW_RATE_AGE && inputValue < MEDIUM_RATE_AGE) {
       setGamesRate(['low', 'lowest']);
     }
 
-    if (numberValue >= MEDIUM_RATE_AGE && numberValue < HIGH_RATE_AGE) {
+    if (inputValue >= MEDIUM_RATE_AGE && inputValue < HIGH_RATE_AGE) {
       setGamesRate(['medium', 'low', 'lowest']);
     }
-
-    setInputValue(value);
   }
 
   return (
     <>
       <Header title="Games Store" imgSrc={`${process.env.PUBLIC_URL}/assets/game-controller.png`} hasBackButton />
-        <form className="gs_form">
+        <form className="gs_form" onSubmit={handleSubmit}>
           <p className="gs_form__desc">Age</p>
           <input className="gs_form__input" type="text" value={inputValue} onChange={handleInputChange} placeholder="Enter you age" />
+          <button className="gs_form__button" type="submit">Ок</button>
         </form>
         <div className="content gs__divider">
         <ul className="gs_list">

@@ -48,8 +48,8 @@ const getProportionIndexForLengthArr = ({ arrLength, proportion }) => Math.round
 
 export const collectGamesList = ({ gamesOriginList, quantityGames }) => {
   const rateProportions = {
-    high: 37.5,
-    medium: 25,
+    high: 25,
+    medium: 37.5,
     low: 25,
     lowest: 12.5,
   };

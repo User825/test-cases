@@ -5,7 +5,7 @@ import { fetchGames, fetchUsers } from './api';
 import { collectGamesList, collectUsersList, shuffle, sortUsersArray } from './utils';
 
 const USERS_QUANTITY = 1000;
-const GAMES_QUANTITY = 25;
+const GAMES_QUANTITY = 10;
 
 export const useUsersStore = create((set) => ({
   users: [],
