@@ -38,5 +38,3 @@ if (process.env.NODE_ENV === 'development') {
   mountStoreDevtool('Store', useUsersStore);
   mountStoreDevtool('Store', useGameStore);
 }
-
-

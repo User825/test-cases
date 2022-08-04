@@ -44,14 +44,14 @@ export const collectUsersList = ({ usersOriginList, quantityUsers }) => {
   }));
 }
 
-const getProportionIndexForLengthArr = ({ arrLength, proportion }) => Math.round((arrLength - 1) / 100 * proportion);
+const getProportionIndexForLengthArr = ({ arrLength, proportion }) => Math.round(arrLength / 10 * proportion);
 
 export const collectGamesList = ({ gamesOriginList, quantityGames }) => {
-  const rateProportions = {
-    high: 25,
-    medium: 37.5,
-    low: 25,
-    lowest: 12.5,
+  const decimalRateProportions = {
+    high: 3,
+    medium: 0,
+    low: 4,
+    lowest: 3,
   };
   let gamesList = [];
 
@@ -60,15 +60,15 @@ export const collectGamesList = ({ gamesOriginList, quantityGames }) => {
   };
 
   if (gamesOriginList.length > quantityGames) {
-    gamesList = gamesOriginList.slice(0, quantityGames - 1)
+    gamesList = gamesOriginList.slice(0, quantityGames)
   };
 
   const arrLength = gamesList.length;
-
-  const highIndex = getProportionIndexForLengthArr({ arrLength, proportion: rateProportions.high });
-  const mediumIndex = highIndex + getProportionIndexForLengthArr({ arrLength, proportion: rateProportions.medium });
-  const lowIndex = mediumIndex + getProportionIndexForLengthArr({ arrLength, proportion: rateProportions.low });
-  const lowestIndex = lowIndex + getProportionIndexForLengthArr({ arrLength, proportion: rateProportions.lowest });
+  
+  const highIndex = getProportionIndexForLengthArr({ arrLength, proportion: decimalRateProportions.high }) - 1;
+  const mediumIndex = highIndex + getProportionIndexForLengthArr({ arrLength, proportion: decimalRateProportions.medium });
+  const lowIndex = mediumIndex + getProportionIndexForLengthArr({ arrLength, proportion: decimalRateProportions.low });
+  const lowestIndex = lowIndex + getProportionIndexForLengthArr({ arrLength, proportion: decimalRateProportions.lowest });
 
   return gamesList.map((game, index) => {
     let rate;
