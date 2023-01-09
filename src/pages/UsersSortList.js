@@ -26,15 +26,15 @@ export const UsersSortList = () => {
     <>
       <Header title="Users sort list" imgSrc="https://robohash.org/aliquamcumqueiure.png" hasBackButton/>
       <div className="content">
-        <div className="usl_buttons">
-          <button className="usl_buttons__unit" onClick={sortUp}>
-            <img className="usl_buttons__icon" src={`${process.env.PUBLIC_URL}/assets/arrow-down.png`} alt="sort to down" />
+        <div className="sort_buttons">
+          <button className="sort_buttons__unit" onClick={sortUp}>
+            <img className="sort_buttons__icon" src={`${process.env.PUBLIC_URL}/assets/arrow-down.png`} alt="sort to down" />
           </button>
-          <button className="usl_buttons__unit" onClick={sortDown}>
-            <img className="usl_buttons__icon" src={`${process.env.PUBLIC_URL}/assets/arrow-up.png`} alt="sort to up" />
+          <button className="sort_buttons__unit" onClick={sortDown}>
+            <img className="sort_buttons__icon" src={`${process.env.PUBLIC_URL}/assets/arrow-up.png`} alt="sort to up" />
           </button>
-          <button className="usl_buttons__unit" onClick={shuffle}>
-            <img className="usl_buttons__icon" src={`${process.env.PUBLIC_URL}/assets/shuffle.png`} alt="shuffle" />
+          <button className="sort_buttons__unit" onClick={shuffle}>
+            <img className="sort_buttons__icon" src={`${process.env.PUBLIC_URL}/assets/shuffle.png`} alt="shuffle" />
           </button>
         </div>
         <table className="usl_table">
